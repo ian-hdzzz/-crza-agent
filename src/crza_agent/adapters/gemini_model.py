@@ -28,7 +28,7 @@ class GeminiModelAdapter:
             contents=contents,
             config=types.GenerateContentConfig(
                 system_instruction=request.instructions,
-                max_output_tokens=1024,
+                max_output_tokens=2048,
                 temperature=0.7,
             ),
         )
