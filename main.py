@@ -1,11 +1,15 @@
 """Composition root — the only file that knows about everything.
 
+
 Wires domain knowledge + AgentSpec + adapters + topology.
 Run locally:  uvicorn main:app --reload --port 8000
 """
 from __future__ import annotations
 
-from src.crza_agent.adapters.anthropic_model import AnthropicModelAdapter
+from dotenv import load_dotenv
+load_dotenv()
+
+from src.crza_agent.adapters.gemini_model import GeminiModelAdapter
 from src.crza_agent.adapters.context import FirmContextPolicy
 from src.crza_agent.adapters.trace import PrintTrace
 from src.crza_agent.application.agents import AgentSpec, GuardRails
@@ -47,7 +51,7 @@ CRZA_AGENT = AgentSpec(
 
 app = create_app(
     spec=CRZA_AGENT,
-    model=AnthropicModelAdapter(model_id="claude-haiku-4-5-20251001"),
+    model=GeminiModelAdapter(model_id="gemini-3.5-flash"),
     context=FirmContextPolicy(knowledge_block=KNOWLEDGE_BLOCK),
     trace=PrintTrace(),
 )
